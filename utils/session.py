@@ -14,15 +14,17 @@ def initialize_session():
 
     defaults = {
 
-        "page": "transcript",
+    "page": "transcript",
 
-        "meeting_text": "",
+    "meeting_text": "",
 
-        "minutes": "",
+    "minutes": "",
 
-        "email": ""
+    "email": "",
 
-    }
+    "edit_mode": False
+
+}
 
     for key, value in defaults.items():
 

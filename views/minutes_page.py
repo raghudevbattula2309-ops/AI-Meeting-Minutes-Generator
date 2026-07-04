@@ -13,14 +13,84 @@ def render_minutes_page():
     """
 
     # --------------------------------------------------
-    # Back Button
+    # Title
     # --------------------------------------------------
 
-    if st.button("⬅ Back to Transcript"):
+    st.header("📝 Meeting Minutes")
 
-        st.session_state["page"] = "transcript"
+    st.caption(
+        "AI-generated meeting minutes from your transcript."
+    )
 
-        st.rerun()
+    st.divider()
+
+    # --------------------------------------------------
+    # Toolbar
+    # --------------------------------------------------
+
+    col1, col2, col3, col4, col5 = st.columns(5)
+
+    with col1:
+
+        if st.button(
+            "⬅ Back",
+            use_container_width=True
+        ):
+
+            st.session_state["page"] = "transcript"
+
+            st.rerun()
+
+
+
+
+    with col2:
+
+        if not st.session_state["edit_mode"]:
+              
+            if st.button(
+                "✏️ Edit",
+                use_container_width=True
+            ):
+                st.session_state["edit_mode"] = True
+                st.rerun()                        
+        else:
+               
+            if st.button(
+                "💾 Save",
+                use_container_width=True
+            ):
+                st.session_state["minutes"] = st.session_state["minutes_editor"]
+
+                st.session_state["edit_mode"] = False
+
+                st.rerun()
+
+
+
+    with col3:
+
+        st.button(
+            "📄 Export",
+            use_container_width=True,
+            disabled=True
+        )
+
+    with col4:
+
+        st.button(
+            "📧 Email",
+            use_container_width=True,
+            disabled=True
+        )
+
+    with col5:
+
+        st.button(
+            "📋 Copy",
+            use_container_width=True,
+            disabled=True
+        )
 
     st.divider()
 
@@ -30,12 +100,24 @@ def render_minutes_page():
 
     st.success("✅ Meeting Minutes Generated Successfully!")
 
-    st.markdown(st.session_state["minutes"])
+    if st.session_state["edit_mode"]:
+       
+       edited_minutes = st.text_area(
+      "Edit Meeting Minutes",
+      value=st.session_state["minutes"],
+      height=600,
+      key="minutes_editor"
+      )
+    
+       st.session_state["minutes"] = edited_minutes
 
-    st.divider()
+    else:
+
+       st.markdown(st.session_state["minutes"])
+       st.divider()
 
     # --------------------------------------------------
-    # Generate Follow-up Email
+    # Generate Email
     # --------------------------------------------------
 
     if st.button(
@@ -57,7 +139,7 @@ def render_minutes_page():
     # Display Email
     # --------------------------------------------------
 
-    if st.session_state.get("email", "") != "":
+    if st.session_state["email"] != "":
 
         st.subheader("📧 Follow-up Email")
 

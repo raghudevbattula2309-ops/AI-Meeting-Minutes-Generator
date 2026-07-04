@@ -8,8 +8,8 @@ import streamlit as st
 
 from utils.session import initialize_session
 from components.header import render_header
-from pages.transcript_page import render_transcript_page
-from pages.minutes_page import render_minutes_page
+from views.transcript_page import render_transcript_page
+from views.minutes_page import render_minutes_page
 
 
 # ==================================================
