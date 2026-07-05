@@ -22,28 +22,28 @@ def export_minutes_to_word(minutes):
 
     for line in minutes.splitlines():
 
-     line = line.strip()
+        line = line.strip()
 
-     if not line:
-        continue
+        if not line:
+            continue
 
-    if line.startswith("# "):
+        if line.startswith("# "):
 
-        document.add_heading(
-            line.replace("# ", ""),
-            level=1
-        )
+            document.add_heading(
+                line.replace("# ", ""),
+                level=1
+            )
 
-    elif line.startswith("## "):
+        elif line.startswith("## "):
 
-        document.add_heading(
-            line.replace("## ", ""),
-            level=2
-        )
+            document.add_heading(
+                line.replace("## ", ""),
+                level=2
+            )
 
-    else:
+        else:
 
-        document.add_paragraph(line)
+            document.add_paragraph(line)
 
     buffer = BytesIO()
 
