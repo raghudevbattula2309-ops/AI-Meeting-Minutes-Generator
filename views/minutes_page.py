@@ -4,6 +4,7 @@ Meeting Minutes Page
 
 import streamlit as st
 
+from services.word_export import export_minutes_to_word
 from ai_service import generate_followup_email
 
 
@@ -70,18 +71,28 @@ def render_minutes_page():
 
     with col3:
 
-        st.button(
-            "📄 Export",
-            use_container_width=True,
-            disabled=True
-        )
+        if st.button(
+             "📄 Export",
+        use_container_width=True
+        ):
+            word_file = export_minutes_to_word(
+            st.session_state["minutes"]
+            )
+        
+            st.download_button(
+            label="⬇ Download Word Document",
+            data=word_file,
+            file_name="Meeting_Minutes.docx",
+            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            use_container_width=True
+            )
 
     with col4:
 
         st.button(
             "📧 Email",
             use_container_width=True,
-            disabled=True
+            disabled=False
         )
 
     with col5:
