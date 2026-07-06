@@ -5,7 +5,7 @@ Main Application
 """
 
 import streamlit as st
-
+from views.email_page import render_email_page
 from utils.session import initialize_session
 from components.header import render_header
 from views.transcript_page import render_transcript_page
@@ -30,7 +30,7 @@ initialize_session()
 
 
 # ==================================================
-# Main Application
+# Main Application.03
 # ==================================================
 
 def main():
@@ -41,9 +41,13 @@ def main():
 
         render_transcript_page()
 
-    else:
+    elif st.session_state["page"] == "minutes":
 
         render_minutes_page()
+
+    elif st.session_state["page"] == "email":
+
+        render_email_page()
 
 
 # ==================================================

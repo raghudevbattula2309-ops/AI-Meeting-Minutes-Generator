@@ -90,11 +90,20 @@ def render_minutes_page():
 
     with col4:
 
-        st.button(
-            "📧 Email",
-            use_container_width=True,
-            disabled=False
-        )
+      if st.button(
+        "📧 Email",
+        use_container_width=True
+        ):
+
+        with st.spinner("📧 Generating professional email..."):
+
+            st.session_state["email"] = generate_followup_email(
+                st.session_state["minutes"]
+            )
+
+        st.session_state["page"] = "email"
+
+        st.rerun()
 
     with col5:
 
